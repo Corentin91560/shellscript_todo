@@ -19,6 +19,9 @@ root_file=~/.todo/.todolist
 # Utils
 ###################################################
 
+##
+# show help
+# 
 show_help () {
 
 	# cat <<- EOF | less
@@ -80,11 +83,32 @@ show_help () {
 	" | less
 }
 
-delete_todos () {
+##
+# add a new todo
+# 
+add_todo () {
+	echo "$1" >> $root_file
+	echo "New Todo Added!"	
+}
+
+##
+# list all todos
+# 
+list_todos () {
+	cat $root_file
+}
+
+##
+# reset all todos
+# 
+reset_todos () {
 	cp /dev/null $root_file
 	echo "Delete All Todos."
 }
 
+##
+# initialize and create a dir and filesfor todo list
+# 
 initialize () {
 
 	if [ ! -d $root_dir ]
@@ -103,42 +127,49 @@ initialize () {
 # Base
 ###################################################
 
+##
 # initialize
+# 
 initialize
 
+##
 # execute commands depending on options
+# 
 case $1 in
+	# add
 	"-a")
-		echo "$2" >> $root_file
-		echo "New Todo Added!"
+		add_todo $2
 		;;
 	"--add")
-		echo "$2" >> $root_file
-		echo "New Todo Added!"
+		add_todo $2
 		;;
+	# delete
 	"-d")
 		echo "delete command"
 		;;
 	"--delete")
 		echo "delete command"
 		;;
+	# show help
 	"-h")
 		show_help
 		;;
 	"--help")
 		show_help
 		;;
+	# list todos
 	"-l")
-		cat $root_file
+		list_todos
 		;;
 	"--list")
-		cat $root_file
+		list_todos
 		;;
+	# reset all todos
 	"-r")
-		delete_todos
+		reset_todos
 		;;
 	"--reset")
-		delete_todos
+		reset_todos
 		;;
 	*)
 		echo "run 'todo -h' for help"

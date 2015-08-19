@@ -68,6 +68,17 @@ $ todo --delete 120
 
 ```
 
+### Reset
+
+```bash
+
+// 1
+$ todo -r
+// 2
+$ todo --reset
+
+```
+
 ## License
 
 ```text
