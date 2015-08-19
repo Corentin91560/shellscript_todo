@@ -118,11 +118,9 @@ case $1 in
 		;;
 	"-d")
 		echo "delete command"
-		echo $2
 		;;
 	"--delete")
 		echo "delete command"
-		echo $2
 		;;
 	"-h")
 		show_help
