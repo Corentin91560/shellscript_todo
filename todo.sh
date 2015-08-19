@@ -9,6 +9,11 @@
 # https://github.com/KENJU/shellscript_todo
 
 ###################################################
+# Consts
+###################################################
+version="1.0.0"
+
+###################################################
 # Utils
 ###################################################
 
@@ -16,6 +21,8 @@ show_help () {
 
 	# cat <<- EOF | less
 	echo "
+	---------------------------Commands Manual---------------------------
+
 	COPYRIGHT
 			Copyright (C) 2015 Kenju - All Rights Reserved
 			https://github.com/KENJU/shellscript_todo
@@ -49,12 +56,18 @@ show_help () {
 			-l or --list
 				list all todos.
 
+	VERSION
+			Currently the version of todo is $version.
+			Please visits Github releases page for changelogs.
+				https://github.com/KENJU/shellscript_todo/releases
+
+
 	BUGS
 			Please reports bugs by adding issues on Github repo.
 			The url is here:
 				https://github.com/KENJU/shellscript_todo/issues
 
-	----------------------August 19, 2015----------------------
+	---------------------------August 19, 2015---------------------------
 	" | less
 }
 
@@ -80,10 +93,9 @@ case $1 in
 		echo $2
 		;;
 	"-h")
-		echo "help command"
+		show_help
 		;;
 	"--help")
-		echo "help command"
 		show_help
 		;;
 	"-l")
