@@ -12,6 +12,8 @@
 # Consts
 ###################################################
 version="1.0.0"
+root_dir=~/.todo
+root_file=~/.todo/.todolist
 
 ###################################################
 # Utils
@@ -38,6 +40,10 @@ show_help () {
 			todo [--add (title)]
 			todo [-d (title)]
 			todo [--delete (title)]
+			todo -l
+			todo --list
+			todo -r
+			todo --reset
 
 	DESCRIPTION
 			todo command is a program for adding, listing and deleting
@@ -56,6 +62,9 @@ show_help () {
 			-l or --list
 				list all todos.
 
+			-r or --reset
+				delete all todos.
+
 	VERSION
 			Currently the version of todo is $version.
 			Please visits Github releases page for changelogs.
@@ -71,20 +80,21 @@ show_help () {
 	" | less
 }
 
+delete_todos () {
+	cp /dev/null $root_file
+	echo "Delete All Todos."
+}
+
 initialize () {
 
-	if [ -d ~/.todo ]
+	if [ ! -d $root_dir ]
 		then
-			# do nothing
-		else
-			mkdir ~/.todo
+			mkdir $root_dir
 	fi
 
-	if [ -f ~/.todo/.todolist ]
+	if [ ! -f $root_file ]
 		then
-			# do nothing
-		else
-			touch ~/.todo/todolist
+			touch $root_file
 	fi
 
 }
@@ -99,12 +109,12 @@ initialize
 # execute commands depending on options
 case $1 in
 	"-a")
-		echo "add command"
-		echo $2
+		echo "$2" >> $root_file
+		echo "New Todo Added!"
 		;;
 	"--add")
-		echo "add command"
-		echo $2
+		echo "$2" >> $root_file
+		echo "New Todo Added!"
 		;;
 	"-d")
 		echo "delete command"
@@ -121,10 +131,16 @@ case $1 in
 		show_help
 		;;
 	"-l")
-		echo "list command"
+		cat $root_file
 		;;
 	"--list")
-		echo "list command"
+		cat $root_file
+		;;
+	"-r")
+		delete_todos
+		;;
+	"--reset")
+		delete_todos
 		;;
 	*)
 		echo "run 'todo -h' for help"
