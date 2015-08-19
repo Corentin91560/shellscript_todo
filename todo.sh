@@ -71,10 +71,32 @@ show_help () {
 	" | less
 }
 
+initialize () {
+
+	if [ -d ~/.todo ]
+		then
+			# do nothing
+		else
+			mkdir ~/.todo
+	fi
+
+	if [ -f ~/.todo/.todolist ]
+		then
+			# do nothing
+		else
+			touch ~/.todo/todolist
+	fi
+
+}
+
 ###################################################
 # Base
 ###################################################
 
+# initialize
+initialize
+
+# execute commands depending on options
 case $1 in
 	"-a")
 		echo "add command"
