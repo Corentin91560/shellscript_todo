@@ -117,6 +117,17 @@ add_todo () {
 }
 
 ##
+# deletes todos with id
+# 
+delete_todo () {
+	list_todos
+	echo ""
+	read -p "> Type todo id to delete : " id_to_delete
+	echo $id_to_delete
+	sed /^$id_to_delete/d $root_file > $root_file
+}
+
+##
 # list all todos
 # 
 list_todos () {
@@ -175,10 +186,10 @@ case $1 in
 		;;
 	# delete
 	"-d")
-		echo "delete command"
+		delete_todo
 		;;
 	"--delete")
-		echo "delete command"
+		delete_todo
 		;;
 	# show help
 	"-h")
