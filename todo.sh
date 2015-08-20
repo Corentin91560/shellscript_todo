@@ -87,6 +87,8 @@ show_help () {
 # add a new todo
 # 
 add_todo () {
+	max_count=`wc -l < $root_file`
+	max_count=$(($max_count+1))
 
 	# if parameter is empty
 	if [ $# = 0 ]
@@ -97,7 +99,7 @@ add_todo () {
 	# if parameter is only one
 	if [ $# = 1 ]
 		then
-			echo "$1" >> $root_file
+			echo "$max_count : $1" >> $root_file
 			echo "New Todo Added!"			
 	fi
 
@@ -109,7 +111,7 @@ add_todo () {
 			do
 				var=$var" "$param
 			done
-			echo $var >> $root_file
+			echo "$max_count : $var" >> $root_file
 			echo "New Todo Added!"						
 	fi
 }
@@ -118,6 +120,11 @@ add_todo () {
 # list all todos
 # 
 list_todos () {
+	max_count=`wc -l < $root_file`
+	echo "------------------------------------"
+	echo "Total: "$max_count
+	echo "------------------------------------"
+
 	cat $root_file
 }
 
