@@ -87,8 +87,26 @@ show_help () {
 # add a new todo
 # 
 add_todo () {
-	echo "$1" >> $root_file
-	echo "New Todo Added!"	
+	echo $#
+
+	# if parameter is empty
+	if [ $# = 0 ]
+		then
+			echo "run 'todo -h' for help"
+	fi
+
+	# if parameter is only one
+	if [ $# = 1 ]
+		then
+			echo "$1" >> $root_file
+			echo "New Todo Added!"			
+	fi
+
+	# if parameter is multiple
+	if [ $# -gt 1 ]
+		then
+			echo "test"
+	fi
 }
 
 ##
@@ -138,10 +156,10 @@ initialize
 case $1 in
 	# add
 	"-a")
-		add_todo $2
+		add_todo ${*:2}
 		;;
 	"--add")
-		add_todo $2
+		add_todo ${*:2}
 		;;
 	# delete
 	"-d")
