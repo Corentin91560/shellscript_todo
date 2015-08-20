@@ -87,7 +87,7 @@ show_help () {
 # add a new todo
 # 
 add_todo () {
-	max_count=`wc -l < $root_file`
+	max_count=`tail -1 $root_file | cut -d':' -f 1`
 	max_count=$(($max_count+1))
 
 	# if parameter is empty
@@ -125,17 +125,25 @@ delete_todo () {
 	list_todos
 	echo ""
 	read -p "> Type todo id to delete : " id_to_delete
-	sed /^$id_to_delete/d $root_file > $root_file
-	echo "Successfully deleted the todo."
+
+	max_count=`tail -1 $root_file | cut -d':' -f 1`
+	echo $max_count
+	if [ $id_to_delete -le $max_count ]
+		then
+			grep -v "^$id_to_delete " $root_file > $root_dir/tmp && mv $root_dir/tmp $root_file
+			echo "Successfully deleted the todo."
+		else
+			echo "The ID's todo does not exists."
+	fi
 }
 
 ##
 # list all todos
 # 
 list_todos () {
-	max_count=`wc -l < $root_file`
+	total=`wc -l < $root_file`
 	echo "------------------------------------"
-	echo "Total: "$max_count
+	echo "Total: "$total
 	echo "------------------------------------"
 
 	cat $root_file

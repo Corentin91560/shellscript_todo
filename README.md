@@ -1,5 +1,7 @@
 # todo.sh
 
+[Github repo](https://github.com/KENJU/shellscript_todo/)
+
 ## About
 
 `todo` is a simple shell command for **adding, listing, and deleting todo list** within your **bash command**!
