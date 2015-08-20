@@ -8,6 +8,14 @@
 
 ### Run on Terminal
 
+Copy&Paste below commands on your terminal.
+
+```bash
+curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;chmod u+x /usr/local/bin/todo;
+```
+
+In detail, please have a look at below codes with comments.
+
 ```bash
 
 # Download todo.sh
@@ -34,37 +42,73 @@ $ export PATH=/usr/local/bin:$PATH
 
 ### Add
 
+Adds a new todo.
+
 ```bash
 
-// 1
 $ todo -a "Fixes minor bug"
-// 2
-$ todo --add "Fixes minor bug"
+$ todo --add "Fixes minor bug" # same with -a
+
+```
+
+#### Examples
+
+```bash
+
+$ todo -a Buy a milk
+$ todo --add Buy an egg
+$ todo -a "Buy a milk"
+$ todo --add "Buy an egg"
 
 ```
 
 ### List
 
+Lists all todos.
+
 ```bash
 
-// 1
-$ todo
-// 2
 $ todo -l
-// 3
-$ todo --list
+$ todo --list # same with -l
+
+```
+
+#### Examples
+
+```bash
+
+$ todo -l
+
+------------------------------------
+Total:  1
+------------------------------------
+1 :  update todo readme
 
 ```
 
 ### Delete
 
 ```bash
-// 0
-$ todo --list
-// 1
-$ todo -d 120
-// 2
-$ todo --delete 120
+
+$ todo -d
+$ todo --delete # same with -d
+
+```
+
+#### Examples
+
+```bash
+
+$ todo -d
+
+------------------------------------
+Total:  1
+------------------------------------
+1 :  update todo readme
+
+> Type todo id to delete : 1 # Type ID which you want to delete
+
+Successfully deleted the todo.
 
 ```
 
@@ -72,10 +116,18 @@ $ todo --delete 120
 
 ```bash
 
-// 1
 $ todo -r
-// 2
-$ todo --reset
+$ todo --reset # same with -r
+
+```
+
+#### Examples
+
+```bash
+
+$ todo -r
+
+Delete All Todos.
 
 ```
 

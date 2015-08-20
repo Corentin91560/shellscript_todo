@@ -100,7 +100,8 @@ add_todo () {
 	if [ $# = 1 ]
 		then
 			echo "$max_count : $1" >> $root_file
-			echo "New Todo Added!"			
+			echo "New Todo Added!"
+			echo "run 'todo -l' for listing all todos."		
 	fi
 
 	# if parameter is multiple
@@ -113,6 +114,7 @@ add_todo () {
 			done
 			echo "$max_count : $var" >> $root_file
 			echo "New Todo Added!"						
+			echo "run 'todo -l' for listing all todos."		
 	fi
 }
 
@@ -123,8 +125,8 @@ delete_todo () {
 	list_todos
 	echo ""
 	read -p "> Type todo id to delete : " id_to_delete
-	echo $id_to_delete
 	sed /^$id_to_delete/d $root_file > $root_file
+	echo "Successfully deleted the todo."
 }
 
 ##
