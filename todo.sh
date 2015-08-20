@@ -87,7 +87,6 @@ show_help () {
 # add a new todo
 # 
 add_todo () {
-	echo $#
 
 	# if parameter is empty
 	if [ $# = 0 ]
@@ -105,7 +104,13 @@ add_todo () {
 	# if parameter is multiple
 	if [ $# -gt 1 ]
 		then
-			echo "test"
+			count=$#
+			for param in $@
+			do
+				var=$var" "$param
+			done
+			echo $var >> $root_file
+			echo "New Todo Added!"						
 	fi
 }
 
