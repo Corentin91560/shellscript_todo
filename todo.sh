@@ -194,11 +194,17 @@ case $1 in
 	"--add")
 		add_todo ${*:2}
 		;;
+	"add")
+		add_todo ${*:2}
+		;;
 	# delete
 	"-d")
 		delete_todo
 		;;
 	"--delete")
+		delete_todo
+		;;
+	"delete")
 		delete_todo
 		;;
 	# show help
@@ -208,6 +214,9 @@ case $1 in
 	"--help")
 		show_help
 		;;
+	"help")
+		show_help
+		;;
 	# list todos
 	"-l")
 		list_todos
@@ -215,11 +224,17 @@ case $1 in
 	"--list")
 		list_todos
 		;;
+	"list")
+		list_todos
+		;;
 	# reset all todos
 	"-r")
 		reset_todos
 		;;
 	"--reset")
+		reset_todos
+		;;
+	"reset")
 		reset_todos
 		;;
 	*)

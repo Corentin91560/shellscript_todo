@@ -24,7 +24,7 @@ In detail, please have a look at below codes with comments.
 $ curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo
 
 # Add permission
-$ chmod u+x /usr/local/bin/todo.sh
+$ chmod u+x /usr/local/bin/todo
 
 # Run todo
 $ todo -h
