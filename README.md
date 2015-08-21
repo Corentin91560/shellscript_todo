@@ -1,6 +1,9 @@
 # todo.sh
 
-[Github repo](https://github.com/KENJU/shellscript_todo/)
+![todo](screenshot.png)
+
+- [Github repo](https://github.com/KENJU/shellscript_todo/)
+- [Docs](http://kenju.github.io/shellscript_todo/)
 
 ## About
 
