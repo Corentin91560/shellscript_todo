@@ -96,6 +96,9 @@ OPTIONS
 		-r or --reset or reset
 			delete all todos.
 
+		-s or --search or search
+			search todo with a query.
+
 		-u or --update or update
 			update todo.
 

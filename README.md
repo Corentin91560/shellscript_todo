@@ -42,6 +42,13 @@ $ export PATH=/usr/local/bin:$PATH
 
 ## Usage
 
+- add
+- list
+- delete
+- reset
+- search
+- update
+
 ### Add
 
 Adds a new todo with a title.
@@ -150,6 +157,25 @@ Search todo with title.
 $ todo -s
 $ todo --search
 $ todo search
+
+# you can use the second+ parameter for searching query
+$ todo -s test
+$ todo -s 1
+$ todo -s issue
+
+```
+
+#### Examples
+
+```bash
+
+$ todo -s fix
+========================================================================
+ID : Title                                                    Total:  2
+------------------------------------------------------------------------
+1 :  fixes search bug
+2 :  fixes add a new todo bug
+========================================================================
 
 ```
 
