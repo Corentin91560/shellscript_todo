@@ -41,19 +41,19 @@ update () {
 		then
 			rm /usr/local/bin/todo
 	fi
-	
+
 	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
 	chmod u+x /usr/local/bin/todo;	
 }
+
 
 ##
 # show help
 # 
 show_help () {
-
+		
 	# cat <<- EOF | less
 	echo "
-
 
 ████████╗ ██████╗ ██████╗  ██████╗ 
 ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
@@ -158,6 +158,7 @@ add_todo () {
 # deletes todos with id
 # 
 delete_todo () {
+
 	list_todos
 	echo ""
 	read -p "> Type todo id to delete : " id_to_delete
@@ -178,11 +179,11 @@ delete_todo () {
 # 
 list_todos () {
 	total=`wc -l < $root_file`
-	echo "------------------------------------"
-	echo "Total: "$total
-	echo "------------------------------------"
-
-	cat $root_file
+	echo "========================================================================"
+	echo "ID : Title                                                    Total: "$total
+	echo "------------------------------------------------------------------------"
+	cat $root_file | sort
+	echo "========================================================================"
 }
 
 ##
@@ -191,6 +192,27 @@ list_todos () {
 reset_todos () {
 	cp /dev/null $root_file
 	echo "Delete All Todos."
+}
+
+##
+# search a todo
+# 
+search_todo () {
+	if [ -z $@ ]
+		then
+			read -p "Type any number or text for search: " search_original
+			search_todo $search_original
+		else
+		result=`grep "$@" $root_file`
+		search_total=`grep "$@" $root_file | wc -l`
+	    [ -z $search_total ] && search_total="0" || search_total=$search_total
+
+		echo "========================================================================"
+		echo "ID : Title                                                    Total: "$search_total
+		echo "------------------------------------------------------------------------"
+		echo "${result}"
+		echo "========================================================================"
+	fi
 }
 
 ##
@@ -242,6 +264,10 @@ case $1 in
 	# reset all todos
 	"-r"|"--reset"|"reset")
 		reset_todos
+		;;
+	# search a todo
+	"-s"|"--search"|"search")
+		search_todo ${*:2}
 		;;
 	# update todo
 	"-u"|"--update"|"update")

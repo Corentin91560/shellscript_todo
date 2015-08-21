@@ -44,7 +44,7 @@ $ export PATH=/usr/local/bin:$PATH
 
 ### Add
 
-Adds a new todo.
+Adds a new todo with a title.
 
 ```bash
 
@@ -92,6 +92,8 @@ Total:  1
 
 ### Delete
 
+Delete a todo by typing ID.
+
 ```bash
 
 $ todo -d
@@ -119,6 +121,8 @@ Successfully deleted the todo.
 
 ### Reset
 
+Reset all todos in the list.
+
 ```bash
 
 $ todo -r
@@ -134,6 +138,30 @@ $ todo reset # same with -r
 $ todo -r
 
 Delete All Todos.
+
+```
+
+### Search
+
+Search todo with title.
+
+```bash
+
+$ todo -s
+$ todo --search
+$ todo search
+
+```
+
+### Update
+
+Update `todo` script.
+
+```bash
+
+$ todo -u
+$ todo --update
+$ todo update
 
 ```
 
