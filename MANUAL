@@ -1,0 +1,50 @@
+
+████████╗ ██████╗ ██████╗  ██████╗ 
+╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
+   ██║   ██║   ██║██║  ██║██║   ██║
+   ██║   ██║   ██║██║  ██║██║   ██║
+   ██║   ╚██████╔╝██████╔╝╚██████╔╝
+   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
+		                                  
+
+---------------------------Commands Manual---------------------------
+
+COPYRIGHT
+		Copyright (C) 2015 Kenju - All Rights Reserved
+		https://github.com/KENJU/shellscript_todo
+
+NAME
+    	todo - adds, lists, and deletes todo list with bash
+
+DESCRIPTION
+		todo command is a program for adding, listing and deleting
+		todo lists easily with bash.
+
+OPTIONS
+		-a or --add
+			add a new todo.
+
+		-d or --delete
+			delete an exsiting todo.
+
+		-h or --help
+			show a help page.
+
+		-l or --list
+			list all todos.
+
+		-r or --reset
+			delete all todos.
+
+VERSION
+		Currently the version of todo is $version.
+		Please visits Github releases page for changelogs.
+			https://github.com/KENJU/shellscript_todo/releases
+
+
+BUGS
+		Please reports bugs by adding issues on Github repo.
+		The url is here:
+			https://github.com/KENJU/shellscript_todo/issues
+
+---------------------------August 19, 2015---------------------------

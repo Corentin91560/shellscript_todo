@@ -1,9 +1,17 @@
+# ████████╗ ██████╗ ██████╗  ██████╗ 
+# ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
+#    ██║   ██║   ██║██║  ██║██║   ██║
+#    ██║   ██║   ██║██║  ██║██║   ██║
+#    ██║   ╚██████╔╝██████╔╝╚██████╔╝
+#    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
+#                                   
 #!/bin/sh
 # 
 # todo.sh
 # - list all todos
 # - add a todo
 # - delete a todo
+# - reset all todos
 #
 # Copyright (C) 2015 Kenju - All Rights Reserved
 # https://github.com/KENJU/shellscript_todo
@@ -20,68 +28,81 @@ root_file=~/.todo/.todolist
 ###################################################
 
 ##
+# update
+# 
+update () {
+	if [ ! -d /usr/local/bin/ ]
+		then
+			mkdir /usr/local/bin/
+	fi
+
+	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
+	chmod u+x /usr/local/bin/todo;	
+}
+
+##
 # show help
 # 
 show_help () {
 
 	# cat <<- EOF | less
 	echo "
-	---------------------------Commands Manual---------------------------
 
-	COPYRIGHT
-			Copyright (C) 2015 Kenju - All Rights Reserved
-			https://github.com/KENJU/shellscript_todo
+████████╗ ██████╗ ██████╗  ██████╗ 
+╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
+   ██║   ██║   ██║██║  ██║██║   ██║
+   ██║   ██║   ██║██║  ██║██║   ██║
+   ██║   ╚██████╔╝██████╔╝╚██████╔╝
+   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
+		                                  
 
-	NAME
-	    	todo - adds, lists, and deletes todo list with bash
+---------------------------Commands Manual---------------------------
 
-	SYNOPSIS
-			todo 
-			todo -h
-			todo --help
-			todo [-a (title)]
-			todo [--add (title)]
-			todo [-d (title)]
-			todo [--delete (title)]
-			todo -l
-			todo --list
-			todo -r
-			todo --reset
+COPYRIGHT
+		Copyright (C) 2015 Kenju - All Rights Reserved
+		https://github.com/KENJU/shellscript_todo
 
-	DESCRIPTION
-			todo command is a program for adding, listing and deleting
-			todo lists easily with bash.
+NAME
+    	todo - adds, lists, and deletes todo list with bash
 
-	OPTIONS
-			-a or --add
-				add a new todo.
+DESCRIPTION
+		todo command is a program for adding, listing and deleting
+		todo lists easily with bash.
 
-			-d or --delete
-				delete an exsiting todo.
+OPTIONS
+		-a or --add
+			add a new todo.
 
-			-h or --help
-				show a help page.
+		-d or --delete
+			delete an exsiting todo.
 
-			-l or --list
-				list all todos.
+		-h or --help
+			show a help page.
 
-			-r or --reset
-				delete all todos.
+		-l or --list
+			list all todos.
 
-	VERSION
-			Currently the version of todo is $version.
-			Please visits Github releases page for changelogs.
-				https://github.com/KENJU/shellscript_todo/releases
+		-r or --reset
+			delete all todos.
+
+VERSION
+		Currently the version of todo is $version.
+		Please visits Github releases page for changelogs.
+			https://github.com/KENJU/shellscript_todo/releases
 
 
-	BUGS
-			Please reports bugs by adding issues on Github repo.
-			The url is here:
-				https://github.com/KENJU/shellscript_todo/issues
+BUGS
+		Please reports bugs by adding issues on Github repo.
+		The url is here:
+			https://github.com/KENJU/shellscript_todo/issues
 
-	---------------------------August 19, 2015---------------------------
+---------------------------August 19, 2015---------------------------
 	" | less
 }
+
+###################################################
+# todos
+###################################################
 
 ##
 # add a new todo
@@ -188,54 +209,28 @@ initialize
 # 
 case $1 in
 	# add
-	"-a")
-		add_todo ${*:2}
-		;;
-	"--add")
-		add_todo ${*:2}
-		;;
-	"add")
+	"-a"|"--add"|"add")
 		add_todo ${*:2}
 		;;
 	# delete
-	"-d")
-		delete_todo
-		;;
-	"--delete")
-		delete_todo
-		;;
-	"delete")
+	"-d"|"--delete"|"delete")
 		delete_todo
 		;;
 	# show help
-	"-h")
-		show_help
-		;;
-	"--help")
-		show_help
-		;;
-	"help")
+	"-h"|"--help"|"help")
 		show_help
 		;;
 	# list todos
-	"-l")
-		list_todos
-		;;
-	"--list")
-		list_todos
-		;;
-	"list")
+	"-l"|"--list"|"list")
 		list_todos
 		;;
 	# reset all todos
-	"-r")
+	"-r"|"--reset"|"reset")
 		reset_todos
 		;;
-	"--reset")
-		reset_todos
-		;;
-	"reset")
-		reset_todos
+	# update todo
+	"-u"|"--update"|"update")
+		update
 		;;
 	*)
 		echo "run 'todo -h' for help"
