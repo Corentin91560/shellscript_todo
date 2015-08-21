@@ -1,3 +1,4 @@
+#
 # ████████╗ ██████╗ ██████╗  ██████╗ 
 # ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
 #    ██║   ██║   ██║██║  ██║██║   ██║
@@ -36,6 +37,11 @@ update () {
 			mkdir /usr/local/bin/
 	fi
 
+	if [ -f /usr/local/bin/todo ]
+		then
+			rm /usr/local/bin/todo
+	fi
+	
 	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
 	chmod u+x /usr/local/bin/todo;	
 }
@@ -48,14 +54,19 @@ show_help () {
 	# cat <<- EOF | less
 	echo "
 
+
 ████████╗ ██████╗ ██████╗  ██████╗ 
 ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
    ██║   ██║   ██║██║  ██║██║   ██║
    ██║   ██║   ██║██║  ██║██║   ██║
    ██║   ╚██████╔╝██████╔╝╚██████╔╝
    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
-		                                  
 
+
+created by Kenju 
+> GitHub  : https://github.com/KENJU
+> Twitter : https://twitter.com/kenju_wagatsuma
+		                                  
 ---------------------------Commands Manual---------------------------
 
 COPYRIGHT
@@ -70,20 +81,23 @@ DESCRIPTION
 		todo lists easily with bash.
 
 OPTIONS
-		-a or --add
+		-a or --add or add
 			add a new todo.
 
-		-d or --delete
+		-d or --delete or delete
 			delete an exsiting todo.
 
-		-h or --help
+		-h or --help or help
 			show a help page.
 
-		-l or --list
+		-l or --list or list
 			list all todos.
 
-		-r or --reset
+		-r or --reset or reset
 			delete all todos.
+
+		-u or --update or update
+			update todo.
 
 VERSION
 		Currently the version of todo is $version.
@@ -97,6 +111,7 @@ BUGS
 			https://github.com/KENJU/shellscript_todo/issues
 
 ---------------------------August 19, 2015---------------------------
+
 	" | less
 }
 

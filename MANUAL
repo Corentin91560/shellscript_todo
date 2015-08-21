@@ -5,8 +5,12 @@
    ██║   ██║   ██║██║  ██║██║   ██║
    ██║   ╚██████╔╝██████╔╝╚██████╔╝
    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
-		                                  
 
+
+created by Kenju 
+> GitHub  : https://github.com/KENJU
+> Twitter : https://twitter.com/kenju_wagatsuma
+		                                  
 ---------------------------Commands Manual---------------------------
 
 COPYRIGHT
@@ -21,20 +25,23 @@ DESCRIPTION
 		todo lists easily with bash.
 
 OPTIONS
-		-a or --add
+		-a or --add or add
 			add a new todo.
 
-		-d or --delete
+		-d or --delete or delete
 			delete an exsiting todo.
 
-		-h or --help
+		-h or --help or help
 			show a help page.
 
-		-l or --list
+		-l or --list or list
 			list all todos.
 
-		-r or --reset
+		-r or --reset or reset
 			delete all todos.
+
+		-u or --update or update
+			update todo.
 
 VERSION
 		Currently the version of todo is $version.
