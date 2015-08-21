@@ -50,6 +50,7 @@ Adds a new todo.
 
 $ todo -a "Fixes minor bug"
 $ todo --add "Fixes minor bug" # same with -a
+$ todo add "Fixes minor bug" # same with -a
 
 ```
 
@@ -72,6 +73,7 @@ Lists all todos.
 
 $ todo -l
 $ todo --list # same with -l
+$ todo list # same with -l
 
 ```
 
@@ -94,6 +96,7 @@ Total:  1
 
 $ todo -d
 $ todo --delete # same with -d
+$ todo delete # same with -d
 
 ```
 
@@ -120,6 +123,7 @@ Successfully deleted the todo.
 
 $ todo -r
 $ todo --reset # same with -r
+$ todo reset # same with -r
 
 ```
 
