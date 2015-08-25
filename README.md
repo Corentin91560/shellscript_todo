@@ -5,6 +5,11 @@
 - [Github repo](https://github.com/KENJU/shellscript_todo/)
 - [Docs](http://kenju.github.io/shellscript_todo/)
 
+
+## Demo
+
+![todo](demo.gif)
+
 ## About
 
 `todo` is a simple shell command for **adding, listing, and deleting todo list** within your **bash command**!
