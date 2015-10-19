@@ -1,13 +1,13 @@
+#!/bin/sh
 #
-# ████████╗ ██████╗ ██████╗  ██████╗ 
+# ████████╗ ██████╗ ██████╗  ██████╗
 # ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
 #    ██║   ██║   ██║██║  ██║██║   ██║
 #    ██║   ██║   ██║██║  ██║██║   ██║
 #    ██║   ╚██████╔╝██████╔╝╚██████╔╝
-#    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
-#                                   
-#!/bin/sh
-# 
+#    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝
+#
+#
 # todo.sh
 # - list all todos
 # - add a todo
@@ -20,17 +20,25 @@
 ###################################################
 # Consts
 ###################################################
-version="1.0.0"
-root_dir=~/.todo
-root_file=~/.todo/.todolist
+VERSION="1.0.0"
+ROOT_DIR=~/.todo
+ROOT_FILE=~/.todo/.todolist
 
 ###################################################
 # Utils
 ###################################################
 
-##
-# update
-# 
+#######################################
+# Update todo.sh
+#
+# Globals:
+# 	None
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 update () {
 	if [ ! -d /usr/local/bin/ ]
 		then
@@ -42,31 +50,40 @@ update () {
 			rm /usr/local/bin/todo
 	fi
 
-	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
-	chmod u+x /usr/local/bin/todo;	
+	echo "downloading..."
+	curl -s https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
+	chmod u+x /usr/local/bin/todo;
+	echo "Done updating!"
 }
 
-
-##
-# show help
-# 
+#######################################
+# Show help
+#
+# Globals:
+# 	VERSION
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 show_help () {
-		
+
 	# cat <<- EOF | less
 	echo "
 
-████████╗ ██████╗ ██████╗  ██████╗ 
+████████╗ ██████╗ ██████╗  ██████╗
 ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
    ██║   ██║   ██║██║  ██║██║   ██║
    ██║   ██║   ██║██║  ██║██║   ██║
    ██║   ╚██████╔╝██████╔╝╚██████╔╝
-   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ 
+   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝
 
 
-created by Kenju 
+created by Kenju
 > GitHub  : https://github.com/KENJU
 > Twitter : https://twitter.com/kenju_wagatsuma
-		                                  
+
 ---------------------------Commands Manual---------------------------
 
 COPYRIGHT
@@ -103,7 +120,7 @@ OPTIONS
 			update todo.
 
 VERSION
-		Currently the version of todo is $version.
+		Currently the version of todo is $VERSION.
 		Please visits Github releases page for changelogs.
 			https://github.com/KENJU/shellscript_todo/releases
 
@@ -122,11 +139,20 @@ BUGS
 # todos
 ###################################################
 
-##
-# add a new todo
-# 
+#######################################
+# Add a new todo
+#
+# Globals:
+# 	ROOT_DIR
+# 	ROOT_FILE
+# Arguments:
+# 	Titles
+# Returns:
+# 	None
+#
+#######################################
 add_todo () {
-	max_count=`tail -1 $root_file | cut -d':' -f 1`
+	max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
 	max_count=$(($max_count+1))
 
 	# if parameter is empty
@@ -138,9 +164,9 @@ add_todo () {
 	# if parameter is only one
 	if [ $# = 1 ]
 		then
-			echo "$max_count : $1" >> $root_file
+			echo "$max_count : $1" >> $ROOT_FILE
 			echo "New Todo Added!"
-			echo "run 'todo -l' for listing all todos."		
+			echo "run 'todo -l' for listing all todos."
 	fi
 
 	# if parameter is multiple
@@ -151,63 +177,96 @@ add_todo () {
 			do
 				var=$var" "$param
 			done
-			echo "$max_count : $var" >> $root_file
-			echo "New Todo Added!"						
-			echo "run 'todo -l' for listing all todos."		
+			echo "$max_count : $var" >> $ROOT_FILE
+			echo "New Todo Added!"
+			echo "run 'todo -l' for listing all todos."
 	fi
 }
 
-##
-# deletes todos with id
-# 
+#######################################
+# Delete a todo with specific id
+#
+# Globals:
+# 	ROOT_DIR
+# 	ROOT_FILE
+# Arguments:
+# 	id
+# Returns:
+# 	None
+#
+#######################################
 delete_todo () {
 
 	list_todos
 	echo ""
 	read -p "> Type todo id to delete : " id_to_delete
 
-	max_count=`tail -1 $root_file | cut -d':' -f 1`
+	max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
 	echo $max_count
 	if [ $id_to_delete -le $max_count ]
 		then
-			grep -v "^$id_to_delete " $root_file > $root_dir/tmp && mv $root_dir/tmp $root_file
+			grep -v "^$id_to_delete " $ROOT_FILE > $ROOT_DIR/tmp && mv $ROOT_DIR/tmp $ROOT_FILE
 			echo "Successfully deleted the todo."
 		else
 			echo "The ID's todo does not exists."
 	fi
 }
 
-##
-# list all todos
-# 
+#######################################
+# List all todos
+#
+# Globals:
+# 	ROOT_FILE
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 list_todos () {
-	total=`wc -l < $root_file`
+	total=`wc -l < $ROOT_FILE`
 	echo "========================================================================"
 	echo "ID : Title                                                    Total: "$total
 	echo "------------------------------------------------------------------------"
-	cat $root_file | sort
+	cat $ROOT_FILE | sort
 	echo "========================================================================"
 }
 
-##
-# reset all todos
-# 
+#######################################
+# Reset all todos from the list
+#
+# Globals:
+# 	ROOT_FILE
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 reset_todos () {
-	cp /dev/null $root_file
-	echo "Delete All Todos."
+	cp /dev/null $ROOT_FILE
+	echo "Delete All Todos"
 }
 
-##
-# search a todo
-# 
+#######################################
+# Search a todo from list
+#
+# Globals:
+# 	ROOT_FILE
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 search_todo () {
 	if [ -z $@ ]
 		then
 			read -p "Type any number or text for search: " search_original
 			search_todo $search_original
 		else
-		result=`grep "$@" $root_file`
-		search_total=`grep "$@" $root_file | wc -l`
+		result=`grep "$@" $ROOT_FILE`
+		search_total=`grep "$@" $ROOT_FILE | wc -l`
 	    [ -z $search_total ] && search_total="0" || search_total=$search_total
 
 		echo "========================================================================"
@@ -218,19 +277,28 @@ search_todo () {
 	fi
 }
 
-##
-# initialize and create a dir and filesfor todo list
-# 
+#######################################
+# Create a dir and files for storing
+#
+# Globals:
+# 	ROOT_DIR
+# 	ROOT_FILE
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
 initialize () {
 
-	if [ ! -d $root_dir ]
+	if [ ! -d $ROOT_DIR ]
 		then
-			mkdir $root_dir
+			mkdir $ROOT_DIR
 	fi
 
-	if [ ! -f $root_file ]
+	if [ ! -f $ROOT_FILE ]
 		then
-			touch $root_file
+			touch $ROOT_FILE
 	fi
 
 }
@@ -241,12 +309,12 @@ initialize () {
 
 ##
 # initialize
-# 
+#
 initialize
 
 ##
 # execute commands depending on options
-# 
+#
 case $1 in
 	# add
 	"-a"|"--add"|"add")
