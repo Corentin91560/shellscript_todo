@@ -17,16 +17,19 @@
 # Copyright (C) 2015 Kenju - All Rights Reserved
 # https://github.com/KENJU/shellscript_todo
 
-###################################################
+#############################################################################
 # Consts
-###################################################
-VERSION="1.0.0"
+#############################################################################
+# version
+VERSION="1.3.0"
+# root directory
 ROOT_DIR=~/.todo
+# root file for storing todo data
 ROOT_FILE=~/.todo/.todolist
 
-###################################################
+#############################################################################
 # Utils
-###################################################
+#############################################################################
 
 #######################################
 # Update todo.sh
@@ -40,16 +43,19 @@ ROOT_FILE=~/.todo/.todolist
 #
 #######################################
 update () {
+	# Create /usr/loca/bin
 	if [ ! -d /usr/local/bin/ ]
 		then
 			mkdir /usr/local/bin/
 	fi
 
+	# Create bin file for todo.sh
 	if [ -f /usr/local/bin/todo ]
 		then
 			rm /usr/local/bin/todo
 	fi
 
+	# Download
 	echo "downloading..."
 	curl -s https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
 	chmod u+x /usr/local/bin/todo;
@@ -60,7 +66,7 @@ update () {
 # Show help
 #
 # Globals:
-# 	VERSION
+# 	None
 # Arguments:
 # 	None
 # Returns:
@@ -68,76 +74,12 @@ update () {
 #
 #######################################
 show_help () {
-
-	# cat <<- EOF | less
-	echo "
-
-████████╗ ██████╗ ██████╗  ██████╗
-╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗
-   ██║   ██║   ██║██║  ██║██║   ██║
-   ██║   ██║   ██║██║  ██║██║   ██║
-   ██║   ╚██████╔╝██████╔╝╚██████╔╝
-   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝
-
-
-created by Kenju
-> GitHub  : https://github.com/KENJU
-> Twitter : https://twitter.com/kenju_wagatsuma
-
----------------------------Commands Manual---------------------------
-
-COPYRIGHT
-		Copyright (C) 2015 Kenju - All Rights Reserved
-		https://github.com/KENJU/shellscript_todo
-
-NAME
-    	todo - adds, lists, and deletes todo list with bash
-
-DESCRIPTION
-		todo command is a program for adding, listing and deleting
-		todo lists easily with bash.
-
-OPTIONS
-		-a or --add or add
-			add a new todo.
-
-		-d or --delete or delete
-			delete an exsiting todo.
-
-		-h or --help or help
-			show a help page.
-
-		-l or --list or list
-			list all todos.
-
-		-r or --reset or reset
-			delete all todos.
-
-		-s or --search or search
-			search todo with a query.
-
-		-u or --update or update
-			update todo.
-
-VERSION
-		Currently the version of todo is $VERSION.
-		Please visits Github releases page for changelogs.
-			https://github.com/KENJU/shellscript_todo/releases
-
-
-BUGS
-		Please reports bugs by adding issues on Github repo.
-		The url is here:
-			https://github.com/KENJU/shellscript_todo/issues
-
----------------------------August 19, 2015---------------------------
-
-	" | less
+	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/MANUAL | less
 }
 
-###################################################
+#############################################################################
 # todos
-###################################################
+#############################################################################
 
 #######################################
 # Add a new todo
@@ -291,11 +233,13 @@ search_todo () {
 #######################################
 initialize () {
 
+	# Create dir if it does not exist yet
 	if [ ! -d $ROOT_DIR ]
 		then
 			mkdir $ROOT_DIR
 	fi
 
+	# Create a file if it does not exist yet
 	if [ ! -f $ROOT_FILE ]
 		then
 			touch $ROOT_FILE
@@ -303,18 +247,14 @@ initialize () {
 
 }
 
-###################################################
+#############################################################################
 # Base
-###################################################
+#############################################################################
 
-##
 # initialize
-#
 initialize
 
-##
 # execute commands depending on options
-#
 case $1 in
 	# add
 	"-a"|"--add"|"add")
@@ -344,6 +284,7 @@ case $1 in
 	"-u"|"--update"|"update")
 		update
 		;;
+	# default
 	*)
 		echo "run 'todo -h' for help"
 		;;
