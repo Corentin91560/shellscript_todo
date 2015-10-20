@@ -31,6 +31,29 @@ ROOT_FILE=~/.todo/.todolist
 # Utils
 #############################################################################
 
+########################################
+# Spin bar for showing process
+#
+# Globals:
+# 	None
+# Arguments:
+# 	None
+# Returns:
+# 	None
+#
+#######################################
+spin () {
+  rotations=3
+  delay=0.1
+  for i in `seq 0 $rotations`; do
+    for char in '|' '/' '-' '\'; do
+      echo -n $char
+      sleep $delay
+      printf "\b"
+    done
+  done
+}
+
 #######################################
 # Update todo.sh
 #
@@ -57,7 +80,7 @@ update () {
 
 	# Download
 	echo "downloading..."
-	spin 3
+	spin
 	curl -s https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
 	chmod u+x /usr/local/bin/todo;
 	echo "Done updating!"
@@ -76,32 +99,6 @@ update () {
 #######################################
 show_help () {
 	curl https://raw.githubusercontent.com/KENJU/shellscript_todo/master/MANUAL | less
-}
-
-#######################################
-# Spin bar for showing process
-#
-# Globals:
-# 	None
-# Arguments:
-# 	Rotate to count
-# Returns:
-# 	None
-#
-#######################################
-spin () {
-	# Rotate count
-	rotations=$1
-	# Animation speed
-	delay=0.1
-	# Rotate bars
-	for i in `seq 0 $rotations`; do
-		for char in '|' '/' '-' '\'; do
-		  echo -n $char
-		  sleep $delay
-		  printf "\b"
-		done
-	done
 }
 
 #############################################################################
