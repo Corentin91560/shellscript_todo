@@ -70,20 +70,17 @@ spin () {
 #
 #######################################
 update () {
-	# Create /usr/loca/bin
-	if [ ! -d /usr/local/bin/ ]
-		then
-			mkdir /usr/local/bin/
+	declare -r BIN=/usr/local/bin
+	if [ ! -d $BIN ];then
+		mkdir $BIN
 	fi
 
-	# Create bin file for todo.sh
-	if [ -f /usr/local/bin/todo ]
-		then
-			rm /usr/local/bin/todo
+	declare -r TODO=$BIN/todo
+	if [ -f $TODO ];then
+		rm $TODO
 	fi
 
-	# Download
-	echo "downloading..."
+	echo "Downloading..."
 	spin
 	curl -s https://raw.githubusercontent.com/KENJU/shellscript_todo/master/todo.sh > /usr/local/bin/todo;
 	chmod u+x /usr/local/bin/todo;
@@ -122,34 +119,31 @@ show_help () {
 #
 #######################################
 add_todo () {
-	max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
-	max_count=$(($max_count+1))
+	declare max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
+	declare max_count=$(($max_count+1))
 
 	# if parameter is empty
-	if [ $# = 0 ]
-		then
-			echo "run 'todo -h' for help"
+	if [ $# = 0 ];then
+		echo "run 'todo -h' for help"
 	fi
 
 	# if parameter is only one
-	if [ $# = 1 ]
-		then
-			echo "$max_count : $1" >> $ROOT_FILE
-			echo "New Todo Added!"
-			echo "run 'todo -l' for listing all todos."
+	if [ $# = 1 ];then
+		echo "$max_count : $1" >> $ROOT_FILE
+		echo "New Todo Added!"
+		echo "run 'todo -l' for listing all todos."
 	fi
 
 	# if parameter is multiple
-	if [ $# -gt 1 ]
-		then
-			count=$#
-			for param in $@
-			do
-				var=$var" "$param
-			done
-			echo "$max_count : $var" >> $ROOT_FILE
-			echo "New Todo Added!"
-			echo "run 'todo -l' for listing all todos."
+	if [ $# -gt 1 ];then
+		count=$#
+		for param in $@
+		do
+			var=$var" "$param
+		done
+		echo "$max_count : $var" >> $ROOT_FILE
+		echo "New Todo Added!"
+		echo "run 'todo -l' for listing all todos."
 	fi
 }
 
@@ -171,7 +165,7 @@ delete_todo () {
 	echo ""
 	read -p "> Type todo id to delete : " id_to_delete
 
-	max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
+	declare max_count=`tail -1 $ROOT_FILE | cut -d':' -f 1`
 	echo $max_count
 	if [ $id_to_delete -le $max_count ]
 		then
@@ -194,7 +188,7 @@ delete_todo () {
 #
 #######################################
 list_todos () {
-	total=`wc -l < $ROOT_FILE`
+	declare total=`wc -l < $ROOT_FILE`
 	echo "========================================================================"
 	echo "ID : Title                                                    Total: "$total
 	echo "------------------------------------------------------------------------"
@@ -262,15 +256,13 @@ search_todo () {
 initialize () {
 
 	# Create dir if it does not exist yet
-	if [ ! -d $ROOT_DIR ]
-		then
-			mkdir $ROOT_DIR
+	if [ ! -d $ROOT_DIR ];then
+		mkdir $ROOT_DIR
 	fi
 
 	# Create a file if it does not exist yet
-	if [ ! -f $ROOT_FILE ]
-		then
-			touch $ROOT_FILE
+	if [ ! -f $ROOT_FILE ];then
+		touch $ROOT_FILE
 	fi
 
 }
@@ -282,37 +274,28 @@ initialize () {
 # initialize
 initialize
 
-# execute commands depending on options
 case $1 in
-	# add
 	"-a"|"--add"|"add")
 		add_todo ${*:2}
 		;;
-	# delete
 	"-d"|"--delete"|"delete")
 		delete_todo
 		;;
-	# show help
 	"-h"|"--help"|"help")
 		show_help
 		;;
-	# list todos
 	"-l"|"--list"|"list")
 		list_todos
 		;;
-	# reset all todos
 	"-r"|"--reset"|"reset")
 		reset_todos
 		;;
-	# search a todo
 	"-s"|"--search"|"search")
 		search_todo ${*:2}
 		;;
-	# update todo
 	"-u"|"--update"|"update")
 		update
 		;;
-	# default
 	*)
 		echo "run 'todo -h' for help"
 		;;
