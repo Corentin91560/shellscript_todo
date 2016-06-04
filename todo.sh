@@ -21,11 +21,14 @@
 # Consts
 #############################################################################
 # version
-VERSION="1.3.0"
+declare -r VERSION="1.3.0"
 # root directory
-ROOT_DIR=~/.todo
+declare -r ROOT_DIR=~/.todo
 # root file for storing todo data
-ROOT_FILE=~/.todo/.todolist
+declare -r ROOT_FILE=~/.todo/.todolist
+# colors
+declare -r LIGHT_BLUE="\033[1;34m"
+declare -r NO_COLOR="\033[0m"
 
 #############################################################################
 # Utils
@@ -43,15 +46,16 @@ ROOT_FILE=~/.todo/.todolist
 #
 #######################################
 spin () {
-  rotations=3
+  declare -i rotations=5
   delay=0.1
   for i in `seq 0 $rotations`; do
     for char in '|' '/' '-' '\'; do
-      echo -n $char
+      printf ${LIGHT_BLUE}$char
       sleep $delay
-      printf "\b"
+      printf "\b\b"
     done
   done
+  printf ${NO_COLOR}
 }
 
 #######################################
